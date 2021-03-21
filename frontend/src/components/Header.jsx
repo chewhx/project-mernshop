@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { GlobalContext } from "../context/GlobalProvider";
-import { userLogout } from "../context/action/userAction";
+import { LinkContainer } from "react-router-bootstrap";
 
 const Header = () => {
   const { userInfo, userLogout, dispatch } = useContext(GlobalContext);
@@ -19,8 +18,8 @@ const Header = () => {
       <Navbar bg="dark" variant="dark" className="mb-5">
         <Navbar.Brand href="/">MERNSHOP</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/secret">Secret</Nav.Link>
-          <Nav.Link href="/login">Login</Nav.Link>
+          <Nav.Link to="/secret">Secret</Nav.Link>
+          <Nav.Link to="/login">Login</Nav.Link>
         </Nav>
         <Nav>
           {!userInfo ? (
@@ -28,6 +27,11 @@ const Header = () => {
           ) : (
             <Nav.Link href={`/user/${userInfo._id}`}>{userInfo.name}</Nav.Link>
           )}
+        </Nav>
+        <Nav>
+          <LinkContainer to="/cart">
+            <Nav.Link>Cart</Nav.Link>
+          </LinkContainer>
         </Nav>
         <Button
           type="submit"

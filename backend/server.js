@@ -3,7 +3,7 @@ const express = require("express");
 const session = require("express-session");
 const colors = require("colors");
 const morgan = require("morgan");
-const connectDB = require("./mongoose/connect");
+const connectDB = require("./config/connectDb");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
@@ -37,12 +37,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 //  ROUTES
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/products", productRoutes);
 
-//  ERROR HANDLER
 
 const PORT = process.env.PORT || 8000;
 

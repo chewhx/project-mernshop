@@ -1,9 +1,8 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 import { Form, Button, Card, Row, Container } from "react-bootstrap";
-import { GlobalContext } from "../../context/GlobalProvider";
+import { GlobalContext } from "../context/GlobalProvider";
 
-const LoginScreen = ({ history, location }) => {
+const LoginScreen = () => {
   const { userLogin, userInfo, dispatch } = useContext(GlobalContext);
 
   const [email, setEmail] = useState();
@@ -49,9 +48,15 @@ const LoginScreen = ({ history, location }) => {
               </Button>
             </Form>
             <hr />
+            <Button block variant="outline-secondary" className="my-3">
+              Sign In With Google
+            </Button>
+            <Button block variant="outline-secondary" className="my-3">
+              Sign In With Facebook
+            </Button>
             <p>
-              Don't have an account?{" "}
-              <Card.Link href="/register">Sign up</Card.Link>
+              Don&apos;t have an account?
+              <Card.Link href="/register"> Sign up</Card.Link>
             </p>
           </Card.Body>
         </Card>
