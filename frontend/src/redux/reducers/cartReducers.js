@@ -1,38 +1,33 @@
 import { CART_ADD_ITEMS, CART_REMOVE_ITEMS } from "../constants/cartConstants";
 
-export const cartReducer = (state = {}, action) => {
+export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
     case CART_ADD_ITEMS: {
-      const product = action.payload;
-      const quantity = action.quantity;
-      const existItem = state[product._id];
+      const newItem = action.payload;
+      const existItem = state.cartItems.find((el) => el._id === newItem._id);
+
       if (existItem) {
-        existItem.quantity = quantity;
-        localStorage.setItem("cartItems", JSON.stringify(state));
-        return { ...state };
+        existItem.quantity = newItem.quantity;
+        return { ...state, cartItems: [...state.cartItems] };
       } else {
-        const newState = {
-          ...state,
-          [product._id]: {
-            name: product.name,
-            quantity,
-            price: product.price,
-          },
-        };
-        localStorage.setItem("cartItems", JSON.stringify(newState));
-        return newState;
+        return { ...state, cartItems: [...state.cartItems, newItem] };
       }
     }
     case CART_REMOVE_ITEMS: {
-      const productId = action.payload;
-      const existItem = state[productId];
+      const productIdToRemove = action.payload;
+
+      const existItem = state.cartItems.find(
+        (el) => el._id === productIdToRemove
+      );
+
       if (existItem) {
-        delete state[productId];
-        localStorage.setItem("cartItems", JSON.stringify(state));
-        return { ...state };
-      } else {
-        return { ...state };
+        const editedCart = state.cartItems.filter(
+          (el) => el._id !== productIdToRemove
+        );
+        console.log(editedCart);
+        return { ...state, cartItems: [...editedCart] };
       }
+      return state;
     }
     default:
       return state;

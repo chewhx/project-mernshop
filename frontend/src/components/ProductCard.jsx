@@ -1,21 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Col, Card, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Rating from "./Rating";
-import { GlobalContext } from "../context/GlobalProvider";
-import { addToCart, removeFromCart } from "../redux/actions/cartAction";
+import { addToCart } from "../redux/actions/cartActions";
 import { useDispatch } from "react-redux";
 
 const ProductCard = ({ product }) => {
-  const { addToCartHandler } = useContext(GlobalContext);
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState(1);
 
   const outOfStock = product.countInStock === 0;
-
-  console.log(`${product.name} - ${quantity}`);
 
   return (
     <>
@@ -49,19 +45,10 @@ const ProductCard = ({ product }) => {
                   disabled={outOfStock}
                   variant={outOfStock ? `secondary` : `primary`}
                   onClick={() => {
-                    addToCartHandler(product, Number(quantity));
-                    dispatch(addToCart(product, Number(quantity)));
+                    dispatch(addToCart(product._id, Number(quantity)));
                   }}
                 >
                   {outOfStock ? `Out of Stock` : `Add to Cart`}
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => {
-                    dispatch(removeFromCart(product._id));
-                  }}
-                >
-                  Remove
                 </Button>
               </Col>
             </Form.Row>

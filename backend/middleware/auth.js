@@ -2,7 +2,9 @@ const jwt = require("jsonwebtoken");
 
 exports.authUser = async (req, res, next) => {
   try {
+    console.log("req.user", req.user);
     //  check if user is authenticated
+    console.log(req.isAuthenticated());
     if (req.isAuthenticated()) next();
     else throw new Error("Please login for access");
   } catch (err) {

@@ -1,19 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Card, Row, Container } from "react-bootstrap";
-import { GlobalContext } from "../context/GlobalProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../redux/actions/userActions";
+import PropTypes from "prop-types";
 
-const LoginScreen = () => {
-  const { userLogin, userInfo, dispatch } = useContext(GlobalContext);
-
+const LoginScreen = ({ history }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const loginHandler = (e) => {
-    e.preventDefault();
-    userLogin(email, password, dispatch);
-  };
+  const { userInfo } = useSelector((state) => state.user);
 
-  console.log("userInfo", userInfo);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(`/`);
+    }
+  }, []);
 
   return (
     <Container>
@@ -42,7 +45,10 @@ const LoginScreen = () => {
                 block
                 className="my-4"
                 type="submit"
-                onClick={(e) => loginHandler(e)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(userLogin(email, password));
+                }}
               >
                 Log In
               </Button>
@@ -66,3 +72,7 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+
+LoginScreen.propTypes = {
+  history: PropTypes.object,
+};

@@ -10,6 +10,7 @@ import CartScreen from "./screens/CartScreen";
 import { GlobalProvider } from "./context/GlobalProvider";
 import store from "./redux/store";
 import { Provider } from "react-redux";
+import UserProfileScreen from "./screens/UserProfileScreen";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <GlobalProvider>
         <Header />
         <Container>
+          <Route exact path="/user/:id" component={UserProfileScreen} />
           <Route exact path="/products/:id" component={ProductScreen} />
           <Route exact path="/cart" component={CartScreen} />
           <Route exact path="/login" component={LoginScreen} />

@@ -65,15 +65,11 @@ router.get("/", authUser, authAdmin, async (req, res, err) => {
 router.get("/:id", authUser, async (req, res, next) => {
   try {
     const foundUser = await User.findById(req.params.id).select("-password");
-
     if (!foundUser) {
       throw new Error(`No user found with id ${req.params.id}`);
     }
 
-    res.status(200).json({
-      success: true,
-      data: foundUser,
-    });
+    res.status(200).json(foundUser);
   } catch (err) {
     if (err.name === "CastError") {
       err.message = `Invalid id ${req.params.id}`;
@@ -195,6 +191,12 @@ router.post("/login", (req, res, next) => {
       if (err) {
         return next(err);
       }
+      const loginTime = new Date().getTime();
+      const expiryTime = loginTime + 1000 * 60 * 10;
+
+      user.loginTime = loginTime;
+      user.expiryTime = expiryTime;
+
       res.status(200).json(user);
     });
   })(req, res, next);
@@ -205,7 +207,7 @@ router.post("/login", (req, res, next) => {
 //  @route    POST  /api/v1/users/logout
 //  @access   Private
 
-router.post("/logout", authUser, (req, res) => {
+router.post("/logout", (req, res) => {
   req.logout();
   res.send("LOG OUT");
 });

@@ -31,6 +31,7 @@ app.use(
     secret: "secret",
     resave: true,
     saveUninitialized: true,
+    cookie: { maxAge: 10 * 60 * 1000 },
   })
 );
 
@@ -40,7 +41,6 @@ app.use(passport.session());
 //  ROUTES
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/products", productRoutes);
-
 
 const PORT = process.env.PORT || 8000;
 

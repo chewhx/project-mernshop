@@ -31,7 +31,7 @@ const ProductScreen = ({ match }) => {
               {product.brand}
             </ListGroup.Item>
             <ListGroup.Item>
-              {`Category  `}ß
+              {`Category  `}
               {product.category}
             </ListGroup.Item>
             <ListGroup.Item>

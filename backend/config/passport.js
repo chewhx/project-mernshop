@@ -25,13 +25,14 @@ module.exports = function (passport) {
               //  Generate JWT token
 
               const jsonWebToken = await jwt.sign(
-                { isAdmin: user.isAdmin, _id: user._id },
+                { isAdmin: user.isAdmin, _id: user._id, name: user.name },
                 process.env.JWT_SECRET
               );
 
               const userInfo = {
-                _id: user._id,
+                id: user._id,
                 name: user.name,
+                isAdmin: user.isAdmin,
                 jwt: jsonWebToken,
               };
 
@@ -49,8 +50,8 @@ module.exports = function (passport) {
     done(null, userInfo);
   });
 
-  passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, userInfo) {
+  passport.deserializeUser(function (userInfo, done) {
+    User.findById(userInfo.id, function (err, userInfo) {
       done(err, userInfo);
     });
   });
