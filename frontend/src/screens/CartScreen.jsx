@@ -1,87 +1,106 @@
-import React from "react";
-import { Row, Col, ListGroup, Button, Form } from "react-bootstrap";
-import { useSelector } from "react-redux";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect, useContext } from "react";
+import {
+  Card,
+  Row,
+  Col,
+  ListGroup,
+  Button,
+  InputGroup,
+  Form,
+  Table,
+  Image,
+} from "react-bootstrap";
 import ProductListItem from "../components/ProductListItem";
+import { GlobalContext } from "../context/GlobalProvider";
 
 const CartScreen = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
+  const [totalPrice, setTotalPrice] = useState();
+  const { cartItems } = useContext(GlobalContext);
 
-  let subTotal = 0;
-  if (cartItems.length > 1) {
-    subTotal = cartItems
-      .reduce((acc, item) => acc + item.quantity * item.price, 0)
-      .toFixed(2);
-  }
+  useEffect(() => {
+    const countSubTotal = () => {
+      const allProductsSubtotal = cartItems.map((each) =>
+        Number(each.subTotal)
+      );
+      setTotalPrice(
+        allProductsSubtotal.reduce((acc, currentValue) => acc + currentValue, 0)
+      );
+    };
 
-  let discountTotal = 0;
-  let shippingTotal = 0;
-  let totalBeforeTax =
-    Number.parseFloat(subTotal) + discountTotal + shippingTotal;
-  let taxTotal = Number.parseFloat((0.07 * totalBeforeTax).toFixed(2));
-  let grandTotal = Number.parseFloat(totalBeforeTax + taxTotal).toFixed(2);
+    cartItems && countSubTotal();
+  }, [cartItems]);
 
-  return !cartItems ? (
-    "Loading"
-  ) : (
+  return (
     <>
       <h1>Shopping Cart</h1>
-
+      <Row className="ml-1 mb-3">
+        <Button type="button" variant="outline-primary">
+          {`< Go Back`}
+        </Button>
+      </Row>
       <Row>
-        <Col lg={8}>
-          {cartItems.length >= 1 ? (
-            <>
-              <ListGroup variant="flush">
-                {cartItems.map((cartItem, idx) => (
+        <Col lg={9}>
+          <Card>
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                <Row className="small font-weight-bold text-muted">
+                  <Col lg={6}>PRODUCT</Col>
+                  <Col lg={2}>QUANTITY</Col>
+                  <Col lg={2}>PRICE</Col>
+                  <Col lg={2}></Col>
+                </Row>
+              </ListGroup.Item>
+              {cartItems && cartItems.length === 0 ? (
+                <p className="my-5 text-center">Your shopping cart is empty!</p>
+              ) : (
+                cartItems &&
+                cartItems.map((each, idx) => (
                   <ProductListItem
-                    key={`cartItem-${idx}`}
-                    cartItem={cartItem}
+                    key={`productListItem-${idx}`}
+                    product={each}
                   />
-                ))}
-              </ListGroup>
-              <Col>
-                <Button className="mr-4" variant="primary">
-                  Go Back
-                </Button>
-              </Col>
-            </>
-          ) : (
-            <p>You shopping cart is empty! </p>
-          )}
+                ))
+              )}
+            </ListGroup>
+            <Card.Footer>Free Delivery forever!</Card.Footer>
+          </Card>
         </Col>
-        <Col lg={4}>
-          <Form className="mb-4">
-            <Form.Control placeholder="Eg. 9A2SWE32" />
-            <Form.Label>Enter your discount coupon here</Form.Label>
-          </Form>
-          <ListGroup>
-            <ListGroup.Item>
-              <div className="d-flex justify-content-between">
-                <span className="h5">SUBTOTAL</span>
-                <span className="text-right">${subTotal}</span>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <div className="d-flex justify-content-between">
-                <span>Discount</span>
-                <span className="text-right">${discountTotal}</span>
-              </div>
-              <div className="d-flex justify-content-between">
-                <span>Shipping</span>
-                <span className="text-right">${shippingTotal}</span>
-              </div>
-              <div className="d-flex justify-content-between">
-                <span>Tax</span>
-                <span className="text-right">${taxTotal}</span>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <div className="d-flex justify-content-between">
-                <span className="h5">TOTAL</span>
-                <span className="text-right">${grandTotal}</span>
-              </div>
-            </ListGroup.Item>
-          </ListGroup>
-          <Button block>Proceed to Checkout</Button>
+        <Col lg={3}>
+          <Card className="mb-3">
+            <Card.Body>
+              Have coupon?
+              <Form.Group className="mt-2">
+                <InputGroup>
+                  <Form.Control />
+                  <InputGroup.Append>
+                    <Button type="button" variant="outline-secondary">
+                      Apply
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+              </Form.Group>
+            </Card.Body>
+          </Card>
+          <Card className="mb-3">
+            <Card.Body>
+              <dl className="row">
+                <dt className="col-sm-6">Total price:</dt>
+                <dd className="col-sm-6 text-right">${totalPrice}</dd>
+                <dt className="col-sm-6">Discount:</dt>
+                <dd className="col-sm-6 text-right text-danger">-$10.00</dd>
+                <dt className="col-sm-6">Total price:</dt>
+                <dd className="col-sm-6 text-right">$68.23</dd>
+              </dl>
+              <hr />
+              <Button block type="button" variant="primary">
+                Place Order
+              </Button>
+              <Button block type="button" variant="outline-primary">
+                Continue Shopping
+              </Button>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
     </>
