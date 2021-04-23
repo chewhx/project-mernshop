@@ -1,44 +1,72 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
+import { cartReducer, cartInitialState } from "./cartReducer";
+import { productsReducer, productsInitialState } from "./productReducer";
 
 export const GlobalContext = React.createContext();
 
 const GlobalProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState();
+  // eslint-disable-next-line no-unused-vars
+  const [currLocalStorageColors, setCurrLocalStorageColors] = useState(
+    JSON.parse(localStorage.getItem("localColors")) || []
+  );
 
-  useEffect(() => {
-    setCartItems(JSON.parse(localStorage.getItem("cartItems")) || []);
-  }, []);
+  const [products, dispatchProducts] = useReducer(
+    productsReducer,
+    productsInitialState
+  );
 
-  const addToCart = (object) => {
-    // check if object._id already exists in current cart
-    let existItem = cartItems.find((each) => each._id === object._id);
-    console.log(existItem);
-    // if so, change only the quantity
-    if (existItem) {
-      let newItems = cartItems.filter((each) => each._id !== object._id);
-      existItem.qty = object.qty;
-      newItems.push(existItem);
-      console.log(newItems);
-      localStorage.setItem("cartItems", JSON.stringify(newItems));
-    }
-    // otherwise, add full object to array
-    if (!existItem) {
-      const newItems = [...cartItems, object];
-      setCartItems(newItems);
-      localStorage.setItem("cartItems", JSON.stringify(newItems));
-    }
-  };
+  const [cart, dispatchCart] = useReducer(
+    cartReducer,
+    JSON.parse(localStorage.getItem("cart")) || cartInitialState
+  );
 
-  const removeFromCart = (objectId) => {
-    const newItems = cartItems.filter((each) => each._id !== objectId);
-    setCartItems(newItems);
-    localStorage.setItem("cartItems", JSON.stringify(newItems));
-  };
+  useEffect(() => {}, [currLocalStorageColors]);
+
+  console.log(products);
+
+  // const addProduct = (node) => {
+  //   if (!currLocalStorageColors) {
+  //     localStorage.setItem("localColors", JSON.stringify([node]));
+  //     setProducts((prevProducts) => [...prevProducts, node]);
+  //   }
+  //   if (currLocalStorageColors) {
+  //     let existItem = currLocalStorageColors.find(
+  //       (each) => each._id === node._id
+  //     );
+  //     if (existItem) return;
+  //     if (!existItem) {
+  //       localStorage.setItem(
+  //         "localColors",
+  //         JSON.stringify([...currLocalStorageColors, node])
+  //       );
+  //       setCurrLocalStorageColors((prev) => [...prev, node]);
+  //       productsObject.append(node._id, node);
+  //       setProducts((prevProducts) => [...prevProducts, node]);
+  //     }
+  //   }
+  // };
+
+  // const deleteProduct = (productId) => {
+  //   console.log(`delete ${productId}`);
+  //   let tempArr = [...products];
+  //   tempArr.filter((each) => each._id !== productId);
+  //   let localColors = currLocalStorageColors.filter(
+  //     (each) => each._id !== productId
+  //   );
+  //   setProducts(tempArr);
+  //   setCurrLocalStorageColors(localColors);
+  //   localStorage.setItem("localColors", JSON.stringify(localColors));
+  // };
 
   return (
     <GlobalContext.Provider
-      value={{ cartItems, setCartItems, addToCart, removeFromCart }}
+      value={{
+        products,
+        dispatchProducts,
+        cart,
+        dispatchCart,
+      }}
     >
       {children}
     </GlobalContext.Provider>

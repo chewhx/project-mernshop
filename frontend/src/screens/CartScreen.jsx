@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   Card,
   Row,
@@ -8,28 +8,18 @@ import {
   Button,
   InputGroup,
   Form,
-  Table,
-  Image,
 } from "react-bootstrap";
 import ProductListItem from "../components/ProductListItem";
 import { GlobalContext } from "../context/GlobalProvider";
 
 const CartScreen = () => {
   const [totalPrice, setTotalPrice] = useState();
-  const { cartItems } = useContext(GlobalContext);
-
-  useEffect(() => {
-    const countSubTotal = () => {
-      const allProductsSubtotal = cartItems.map((each) =>
-        Number(each.subTotal)
-      );
-      setTotalPrice(
-        allProductsSubtotal.reduce((acc, currentValue) => acc + currentValue, 0)
-      );
-    };
-
-    cartItems && countSubTotal();
-  }, [cartItems]);
+  const [prices, setPrices] = useState({
+    subTotal: 0,
+    discount: 0,
+    grandTotal: 0,
+  });
+  const { cart } = useContext(GlobalContext);
 
   return (
     <>
@@ -40,8 +30,8 @@ const CartScreen = () => {
         </Button>
       </Row>
       <Row>
-        <Col lg={9}>
-          <Card>
+        <Col xl={9}>
+          <Card className="mb-3">
             <ListGroup variant="flush">
               <ListGroup.Item>
                 <Row className="small font-weight-bold text-muted">
@@ -51,56 +41,69 @@ const CartScreen = () => {
                   <Col lg={2}></Col>
                 </Row>
               </ListGroup.Item>
-              {cartItems && cartItems.length === 0 ? (
+              {Object.keys(cart.items).length === 0 ? (
                 <p className="my-5 text-center">Your shopping cart is empty!</p>
               ) : (
-                cartItems &&
-                cartItems.map((each, idx) => (
+                Object.keys(cart.items).map((key, idx) => (
                   <ProductListItem
                     key={`productListItem-${idx}`}
-                    product={each}
+                    product={cart.items[key]}
                   />
                 ))
               )}
             </ListGroup>
-            <Card.Footer>Free Delivery forever!</Card.Footer>
+            <Card.Footer>
+              We provide free international and domestic shipping!
+            </Card.Footer>
           </Card>
         </Col>
-        <Col lg={3}>
-          <Card className="mb-3">
-            <Card.Body>
-              Have coupon?
-              <Form.Group className="mt-2">
-                <InputGroup>
-                  <Form.Control />
-                  <InputGroup.Append>
-                    <Button type="button" variant="outline-secondary">
-                      Apply
-                    </Button>
-                  </InputGroup.Append>
-                </InputGroup>
-              </Form.Group>
-            </Card.Body>
-          </Card>
-          <Card className="mb-3">
-            <Card.Body>
-              <dl className="row">
-                <dt className="col-sm-6">Total price:</dt>
-                <dd className="col-sm-6 text-right">${totalPrice}</dd>
-                <dt className="col-sm-6">Discount:</dt>
-                <dd className="col-sm-6 text-right text-danger">-$10.00</dd>
-                <dt className="col-sm-6">Total price:</dt>
-                <dd className="col-sm-6 text-right">$68.23</dd>
-              </dl>
-              <hr />
-              <Button block type="button" variant="primary">
-                Place Order
-              </Button>
-              <Button block type="button" variant="outline-primary">
-                Continue Shopping
-              </Button>
-            </Card.Body>
-          </Card>
+        <Col xl={3}>
+          <Row>
+            <Col sm={12} md={4} xl={12}>
+              <Card className="mb-3">
+                <Card.Body>
+                  Have coupon?
+                  <Form.Group className="mt-2">
+                    <InputGroup>
+                      <Form.Control />
+                      <InputGroup.Append>
+                        <Button type="button" variant="outline-secondary">
+                          Apply
+                        </Button>
+                      </InputGroup.Append>
+                    </InputGroup>
+                  </Form.Group>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col sm={12} md={8} xl={12}>
+              <Card className="mb-3">
+                <Card.Body>
+                  <dl className="row">
+                    <dt className="col-sm-6">Sub-total:</dt>
+                    <dd className="col-sm-6 text-right">
+                      ${cart.prices.subTotal.toFixed(2)}
+                    </dd>
+                    <dt className="col-sm-6">Discount:</dt>
+                    <dd className="col-sm-6 text-right text-danger">
+                      -${cart.prices.discount.toFixed(2)}
+                    </dd>
+                    <dt className="col-sm-6">Total price:</dt>
+                    <dd className="col-sm-6 text-right">
+                      ${cart.prices.grandTotal.toFixed(2)}
+                    </dd>
+                  </dl>
+                  <hr />
+                  <Button block type="button" variant="primary">
+                    Place Order
+                  </Button>
+                  <Button block type="button" variant="outline-primary">
+                    Continue Shopping
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
         </Col>
       </Row>
     </>

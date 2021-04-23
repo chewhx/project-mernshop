@@ -3,48 +3,72 @@
     "_id": "4a065d",
     "name": "Hex Color 4a065d",
     "price": 999.99,
+    "theme": "Bootstrap 4",
+    "mode": "Default",
+    "RGBA": "...",
+    "rating": 4.5,
     "image": "https://singlecolorimage.com/get/4a065d/250x250"
   },
   {
     "_id": "ca8b19",
     "name": "Hex Color ca8b19",
     "price": 999.99,
+    "theme": "Bootstrap 4",
+    "mode": "Default",
     "image": "https://singlecolorimage.com/get/ca8b19/250x250"
   },
   {
     "_id": "35772e",
     "name": "Hex Color 35772e",
     "price": 999.99,
+    "theme": "Bootstrap 4",
+    "rating": 3.5,
+    "mode": "Default",
     "image": "https://singlecolorimage.com/get/35772e/250x250"
   },
   {
     "_id": "a38737",
     "name": "Hex Color a38737",
     "price": 999.99,
+    "theme": "Bootstrap 4",
+    "rating": 3.5,
+    "mode": "Default",
     "image": "https://singlecolorimage.com/get/a38737/250x250"
   },
   {
     "_id": "4d5b09",
     "name": "Hex Color 4d5b09",
     "price": 999.99,
+    "theme": "Bootstrap 4",
+    "rating": 3.5,
+    "mode": "Default",
     "image": "https://singlecolorimage.com/get/4d5b09/250x250"
   },
   {
     "_id": "a8b620",
     "name": "Hex Color a8b620",
     "price": 999.99,
+    "theme": "Bootstrap 4",
+    "rating": 3.5,
+    "mode": "Default",
     "image": "https://singlecolorimage.com/get/a8b620/250x250"
   },
   {
     "_id": "75b0f1",
     "name": "Hex Color 75b0f1",
     "price": 999.99,
+    "theme": "Bootstrap 4",
+    "rating": 3.5,
+    "mode": "Default",
     "image": "https://singlecolorimage.com/get/75b0f1/250x250"
   },
   {
     "_id": "7db590",
     "name": "Hex Color 7db590",
     "price": 999.99,
+    "theme": "Bootstrap 4",
+    "rating": 3.5,
+    "mode": "Default",
     "image": "https://singlecolorimage.com/get/7db590/250x250"
   }
 ]

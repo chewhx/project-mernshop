@@ -12,6 +12,7 @@ const app = express();
 //  Import routes
 const userRoutes = require("./routes/api-v1-users");
 const productRoutes = require("./routes/api-v1-products");
+const orderRoutes = require("./routes/api-v1-orders");
 
 //  Import middlewares
 const errorHandler = require("./middleware/errorHandler");
@@ -41,6 +42,7 @@ app.use(passport.session());
 //  ROUTES
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/orders", orderRoutes);
 
 const PORT = process.env.PORT || 8000;
 

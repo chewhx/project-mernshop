@@ -1,4 +1,4 @@
-export const generateColor = () => {
+const generateColor = () => {
   const letters = [
     "0",
     "1",
@@ -25,3 +25,5 @@ export const generateColor = () => {
   }
   return results;
 };
+
+export default generateColor;

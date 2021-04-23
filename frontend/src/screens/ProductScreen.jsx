@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState, useContext } from "react";
 import {
   Row,
@@ -10,35 +11,34 @@ import {
 } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { HeartFill } from "react-bootstrap-icons";
-import products from "../_products.json";
 import Rating from "../components/Rating";
 import { GlobalContext } from "../context/GlobalProvider";
 
 const ProductScreen = ({ match }) => {
-  const [product, setProduct] = useState();
   const [qty, setQty] = useState(1);
+  const [mode, setMode] = useState("default");
+  const [product, setProduct] = useState();
 
-  const { addToCart } = useContext(GlobalContext);
+  console.log({ qty, mode });
+  const { productsObject, addToCart } = useContext(GlobalContext);
 
   useEffect(async () => {
-    const foundProduct = products.filter(
-      (product) => product._id === match.params.id
-    );
-    setProduct(foundProduct[0]);
-  }, [match.params.id]);
+    const foundProduct = productsObject.get(match.params.id);
+    setProduct(foundProduct);
+  }, [matchMedia]);
   return !product ? (
     "Loading..."
   ) : (
     <>
       <Card>
         <Row>
-          <Col md={6}>
+          <Col lg={6}>
             <Image
               fluid
               src={`https://singlecolorimage.com/get/${product._id}/590x500`}
             />
           </Col>
-          <Col md={6}>
+          <Col lg={6}>
             <Card.Body>
               <h2>{product.name}</h2>
               <Rating />
@@ -53,12 +53,12 @@ const ProductScreen = ({ match }) => {
                 Autem illo perspiciatis quasi adipisci illum!
               </Card.Text>
               <dl className="row">
-                <dt className="col-sm-4">HEX Color Code</dt>
-                <dd className="col-sm-8">{product._id}</dd>
-                <dt className="col-sm-4">RBG </dt>
-                <dd className="col-sm-8">(222,222,222)</dd>
-                <dt className="col-sm-4">Model</dt>
-                <dd className="col-sm-8">{product._id}</dd>
+                <dt className="col-sm-4">HEX Code</dt>
+                <dd className="col-sm-8">{`#${product._id.toUpperCase()}`}</dd>
+                <dt className="col-sm-4">Theme </dt>
+                <dd className="col-sm-8">{product.theme}</dd>
+                <dt className="col-sm-4">RGBA</dt>
+                <dd className="col-sm-8">(2,117,216,1)</dd>
               </dl>
               <hr />
               <Form.Row className="mb-3">
@@ -68,24 +68,32 @@ const ProductScreen = ({ match }) => {
                     <InputGroup>
                       <InputGroup.Prepend>
                         <Button
+                          id="qty"
+                          name="qty"
+                          value={Number(qty) - 1}
                           type="button"
                           variant="outline-secondary"
-                          onClick={() =>
-                            setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 1))
-                          }
+                          // onClick={}
                         >
                           -
                         </Button>
                       </InputGroup.Prepend>
                       <Form.Control
+                        id="qty"
+                        name="qty"
                         value={qty}
                         onChange={(e) => setQty(e.target.value)}
-                      ></Form.Control>
+                      />
                       <InputGroup.Append>
                         <Button
+                          id="qty"
+                          name="qty"
+                          value={Number(qty) + 1}
                           type="button"
                           variant="outline-secondary"
-                          onClick={() => setQty((prevQty) => prevQty + 1)}
+                          onClick={() => {
+                            setQty((prev) => prev + 1);
+                          }}
                         >
                           +
                         </Button>
@@ -96,28 +104,20 @@ const ProductScreen = ({ match }) => {
                 <Col md={8}>
                   <Form.Group className="my-3 mx-2">
                     <Form.Label>Select size</Form.Label>
-                    <Form.Check
-                      name="size"
-                      type="radio"
-                      id={`small`}
-                      label={`Small`}
-                    />
-                    <Form.Check
-                      name="size"
-                      type="radio"
-                      id={`Medium`}
-                      label={`Medium `}
-                    />
-                    <Form.Check
-                      name="size"
-                      type="radio"
-                      id={`Large`}
-                      label={`Large`}
-                    />
+                    {product.mode.map((each, idx) => (
+                      <Form.Check
+                        key={`${product.name}-mode-${idx}`}
+                        id="mode"
+                        name="mode"
+                        type="radio"
+                        label={each}
+                        value={each}
+                        onChange={(e) => setMode(e.target.value)}
+                      />
+                    ))}
                   </Form.Group>
                 </Col>
               </Form.Row>
-
               <Button className="mr-2" type="button" variant="primary">
                 Buy now
               </Button>
@@ -129,8 +129,9 @@ const ProductScreen = ({ match }) => {
                   addToCart({
                     _id: product._id,
                     qty: qty,
+                    mode: mode,
                     price: product.price,
-                    subTotal: (product.price * qty).toFixed(2),
+                    subTotal: (product.price * Number(qty)).toFixed(2),
                   })
                 }
               >

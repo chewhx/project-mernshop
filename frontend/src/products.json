@@ -1,0 +1,76 @@
+[
+  {
+    "ffffff": {
+      "_id": "ffffff",
+      "name": "BS white",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    },
+    "007bff": {
+      "_id": "007bff",
+      "name": "BS primary",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    },
+    "6c757d": {
+      "_id": "6c757d",
+      "name": "BS secondary",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    },
+    "28a745": {
+      "_id": "28a745",
+      "name": "BS success",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    },
+    "17a2b8": {
+      "_id": "17a2b8",
+      "name": "BS info",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    },
+    "ffc107": {
+      "_id": "ffc107",
+      "name": "BS warning",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    },
+    "dc3545": {
+      "_id": "dc3545",
+      "name": "BS danger",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    },
+    "f8f9fa": {
+      "_id": "f8f9fa",
+      "name": "BS light",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    },
+    "343a40": {
+      "_id": "343a40",
+      "name": "BS dark",
+      "price": 99.99,
+      "theme": "Bootstrap",
+      "mode": ["default", "light", "dark"],
+      "rating": 4.5
+    }
+  }
+]
