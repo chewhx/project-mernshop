@@ -1,14 +1,18 @@
-import React, { useContext } from "react";
-import { Col, Card, Button } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Col, Card, Button, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { LinkContainer } from "react-router-bootstrap";
-import PropTypes from "prop-types";
+// Context
 import { GlobalContext } from "../context/GlobalProvider";
-
 import { CART_ADD_ITEM } from "../context/constants";
+// Components, screens, pages
+import FormCounter from "./FormCounter";
+// Dev dependencies
+import PropTypes from "prop-types";
 
 const ProductCard = ({ product, inCart }) => {
   const { dispatchCart } = useContext(GlobalContext);
+  const [qty, setQty] = useState(inCart && inCart.qty);
+  console.log(inCart);
   return (
     <>
       <Col lg={3} md={4} sm={6}>
@@ -29,11 +33,34 @@ const ProductCard = ({ product, inCart }) => {
 
             <Card.Text>${product.price}</Card.Text>
             {inCart ? (
-              <LinkContainer to={`/cart`}>
-                <Button block type="button" variant="primary">
-                  In cart
-                </Button>
-              </LinkContainer>
+              <>
+                <Row>
+                  <Col md={6}>
+                    <FormCounter size="sm" value={qty} onChange={setQty} />
+                  </Col>
+                  <Col md={6}>
+                    <Button
+                      size="sm"
+                      type="button"
+                      variant="primary"
+                      onClick={() =>
+                        dispatchCart({
+                          type: CART_ADD_ITEM,
+                          payload: {
+                            _id: product._id,
+                            qty: qty,
+                            mode: "default",
+                            price: product.price,
+                            subTotal: Number(product.price) * Number(qty),
+                          },
+                        })
+                      }
+                    >
+                      Update
+                    </Button>
+                  </Col>
+                </Row>
+              </>
             ) : (
               <Button
                 block

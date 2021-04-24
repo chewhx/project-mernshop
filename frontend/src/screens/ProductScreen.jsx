@@ -1,35 +1,27 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useContext } from "react";
-import {
-  Row,
-  Col,
-  Image,
-  Card,
-  Button,
-  Form,
-  InputGroup,
-} from "react-bootstrap";
+import { Row, Col, Image, Card, Button, Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { HeartFill } from "react-bootstrap-icons";
 import Rating from "../components/Rating";
 import { GlobalContext } from "../context/GlobalProvider";
+import { CART_ADD_ITEM } from "../context/constants";
+import FormCounter from "../components/FormCounter";
+import PageTop from "../components/PageTop";
 
 const ProductScreen = ({ match }) => {
-  const [qty, setQty] = useState(1);
+  const { products, dispatchCart, cart } = useContext(GlobalContext);
+
   const [mode, setMode] = useState("default");
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState(products[match.params.id]);
+  const [qty, setQty] = useState(cart.items[product._id].qty || 1);
 
-  console.log({ qty, mode });
-  const { productsObject, addToCart } = useContext(GlobalContext);
-
-  useEffect(async () => {
-    const foundProduct = productsObject.get(match.params.id);
-    setProduct(foundProduct);
-  }, [matchMedia]);
+  useEffect(async () => {}, [setProduct]);
   return !product ? (
     "Loading..."
   ) : (
     <>
+      <PageTop>{` `}</PageTop>
       <Card>
         <Row>
           <Col lg={6}>
@@ -63,43 +55,12 @@ const ProductScreen = ({ match }) => {
               <hr />
               <Form.Row className="mb-3">
                 <Col xs={6} md={4}>
-                  <Form.Group className="my-3 mx-2">
-                    <Form.Label>Quantity</Form.Label>
-                    <InputGroup>
-                      <InputGroup.Prepend>
-                        <Button
-                          id="qty"
-                          name="qty"
-                          value={Number(qty) - 1}
-                          type="button"
-                          variant="outline-secondary"
-                          // onClick={}
-                        >
-                          -
-                        </Button>
-                      </InputGroup.Prepend>
-                      <Form.Control
-                        id="qty"
-                        name="qty"
-                        value={qty}
-                        onChange={(e) => setQty(e.target.value)}
-                      />
-                      <InputGroup.Append>
-                        <Button
-                          id="qty"
-                          name="qty"
-                          value={Number(qty) + 1}
-                          type="button"
-                          variant="outline-secondary"
-                          onClick={() => {
-                            setQty((prev) => prev + 1);
-                          }}
-                        >
-                          +
-                        </Button>
-                      </InputGroup.Append>
-                    </InputGroup>
-                  </Form.Group>
+                  <FormCounter
+                    className="my-3 mx-2"
+                    label="Quantity"
+                    value={qty}
+                    onChange={setQty}
+                  />
                 </Col>
                 <Col md={8}>
                   <Form.Group className="my-3 mx-2">
@@ -126,12 +87,15 @@ const ProductScreen = ({ match }) => {
                 type="button"
                 variant="primary"
                 onClick={() =>
-                  addToCart({
-                    _id: product._id,
-                    qty: qty,
-                    mode: mode,
-                    price: product.price,
-                    subTotal: (product.price * Number(qty)).toFixed(2),
+                  dispatchCart({
+                    type: CART_ADD_ITEM,
+                    payload: {
+                      _id: product._id,
+                      qty: qty,
+                      mode: mode,
+                      price: product.price,
+                      subTotal: (product.price * Number(qty)).toFixed(2),
+                    },
                   })
                 }
               >

@@ -9,21 +9,17 @@ import {
   InputGroup,
   Form,
 } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import PageTop from "../components/PageTop";
 import ProductListItem from "../components/ProductListItem";
 import { GlobalContext } from "../context/GlobalProvider";
 
 const CartScreen = () => {
-  const [totalPrice, setTotalPrice] = useState();
-  const [prices, setPrices] = useState({
-    subTotal: 0,
-    discount: 0,
-    grandTotal: 0,
-  });
   const { cart } = useContext(GlobalContext);
 
   return (
     <>
-      <h1>Shopping Cart</h1>
+      <PageTop>Shopping Cart</PageTop>
       <Row className="ml-1 mb-3">
         <Button type="button" variant="outline-primary">
           {`< Go Back`}
@@ -94,9 +90,11 @@ const CartScreen = () => {
                     </dd>
                   </dl>
                   <hr />
-                  <Button block type="button" variant="primary">
-                    Place Order
-                  </Button>
+                  <LinkContainer to={`/checkout`}>
+                    <Button block type="button" variant="primary">
+                      Place Order
+                    </Button>
+                  </LinkContainer>
                   <Button block type="button" variant="outline-primary">
                     Continue Shopping
                   </Button>

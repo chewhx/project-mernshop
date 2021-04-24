@@ -7,24 +7,17 @@ const Header = () => {
   const { cart } = useContext(GlobalContext);
   return (
     <>
-      <Navbar bg="primary" variant="dark" className="mb-5">
+      <Navbar bg="primary" variant="dark" className="py-3">
         <Navbar.Brand href="/">MERNSHOP</Navbar.Brand>
         <Nav className="mr-auto">
-          <NavDropdown title="Categories" id="nav-dropdown">
-            <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-            <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item eventKey="4.3">
-              Something else here
-            </NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item eventKey="4.4">Separated link</NavDropdown.Item>
+          <NavDropdown title="Products" id="nav-dropdown">
+            <LinkContainer to={`/add`}>
+              <NavDropdown.Item eventKey="4.1">Add product</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to={`/edit`}>
+              <NavDropdown.Item eventKey="4.2">Edit product</NavDropdown.Item>
+            </LinkContainer>
           </NavDropdown>
-          <LinkContainer to={`/add`}>
-            <Nav.Link>Add Products</Nav.Link>
-          </LinkContainer>
-          <LinkContainer to={`/edit`}>
-            <Nav.Link>Edit Products</Nav.Link>
-          </LinkContainer>
         </Nav>
         <Nav className="ml-auto">
           <LinkContainer to="/cart">
@@ -39,7 +32,6 @@ const Header = () => {
               </span>
             </Nav.Link>
           </LinkContainer>
-
           <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
       </Navbar>

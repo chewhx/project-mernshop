@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 
 const ProductListItem = ({ product }) => {
   const [qty, setQty] = useState(product.qty);
-  const { dispatchCart, products } = useContext(GlobalContext);
+  const { dispatchCart, products, cart } = useContext(GlobalContext);
 
   return (
     <ListGroup.Item>
@@ -35,7 +35,21 @@ const ProductListItem = ({ product }) => {
               </p>
               <p className="small text-muted">
                 Mode:{` `}
-                {products[product._id]["mode"]}
+                <Form.Control
+                  as="select"
+                  size="sm"
+                  placeholder={cart.items[product._id]["mode"]}
+                  style={{ width: "50%" }}
+                >
+                  <option
+                    value={cart.items[product._id]["mode"]}
+                    label={cart.items[product._id]["mode"]}
+                  />
+                  <option value="default" label="Default" />
+                  <option value="light" label="Light" />
+                  <option value="dark" label="Dark" />
+                </Form.Control>
+                {cart.items[product._id]["mode"]}
               </p>
             </Col>
           </Row>

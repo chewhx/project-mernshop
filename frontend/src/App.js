@@ -9,6 +9,7 @@ import AddScreen from "./screens/AddScreen";
 import EditScreen from "./screens/EditScreen";
 import CheckoutScreen from "./screens/CheckoutScreen";
 import GlobalProvider from "./context/GlobalProvider";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route exact path="/checkout" component={CheckoutScreen} />
         <Route exact path="/" component={HomeScreen} />
       </Container>
+      <Footer />
     </GlobalProvider>
   );
 };

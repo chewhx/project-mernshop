@@ -3,6 +3,7 @@ import { Col, Row, ListGroup, Button } from "react-bootstrap";
 import { GlobalContext } from "../context/GlobalProvider";
 import PropTypes from "prop-types";
 import { PRODUCTS_REMOVE_ITEM, CART_REMOVE_ITEM } from "../context/constants";
+import PageTop from "../components/PageTop";
 
 const ListItem = ({ product }) => {
   // eslint-disable-next-line no-unused-vars
@@ -56,6 +57,7 @@ const EditProductScreen = () => {
     "Loading"
   ) : (
     <>
+      <PageTop>Edit Product</PageTop>
       <ListGroup>
         <ListGroup.Item>
           <Row>

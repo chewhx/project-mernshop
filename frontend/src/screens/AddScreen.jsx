@@ -5,6 +5,7 @@ import { Card, Form, Row, Col, Button } from "react-bootstrap";
 import generateColor from "../utils/generateColor";
 import getColorName from "../utils/getColorName";
 import generatePrice from "../utils/generatePrice";
+import PageTop from "../components/PageTop";
 import { GlobalContext } from "../context/GlobalProvider";
 import { Formik } from "formik";
 import { PRODUCTS_ADD_ITEM } from "../context/constants";
@@ -43,6 +44,7 @@ const AddProductScreen = () => {
     >
       {(props) => (
         <>
+          <PageTop>Add Product</PageTop>
           <Row>
             <Col md="6">
               <Card className="mb-3">
