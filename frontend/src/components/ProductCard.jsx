@@ -11,8 +11,8 @@ import PropTypes from "prop-types";
 
 const ProductCard = ({ product, inCart }) => {
   const { dispatchCart } = useContext(GlobalContext);
-  const [qty, setQty] = useState(inCart && inCart.qty);
-  console.log(inCart);
+  const [qty, setQty] = useState((inCart && inCart.qty) || 1);
+  console.log(`${product._id} qty: ${qty}`);
   return (
     <>
       <Col lg={3} md={4} sm={6}>
@@ -35,11 +35,12 @@ const ProductCard = ({ product, inCart }) => {
             {inCart ? (
               <>
                 <Row>
-                  <Col md={6}>
+                  <Col lg={6}>
                     <FormCounter size="sm" value={qty} onChange={setQty} />
                   </Col>
-                  <Col md={6}>
+                  <Col lg={6}>
                     <Button
+                      block
                       size="sm"
                       type="button"
                       variant="primary"
@@ -93,5 +94,5 @@ export default ProductCard;
 
 ProductCard.propTypes = {
   product: PropTypes.object,
-  inCart: PropTypes.bool,
+  inCart: PropTypes.object || PropTypes.bool,
 };

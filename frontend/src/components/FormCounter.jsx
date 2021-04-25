@@ -28,8 +28,6 @@ const FormCounter = ({
             </Button>
           </InputGroup.Prepend>
           <Form.Control
-            id="qty"
-            name="qty"
             type="number"
             value={value}
             size={size}

@@ -42,10 +42,11 @@ const addProduct = (state, payload) => {
 };
 
 const removeProduct = (state, payload) => {
-  delete state[payload];
+  const newState = { ...state };
+  delete newState[payload];
   const currLocalStorageColors =
     JSON.parse(localStorage.getItem("products")) || {};
   delete currLocalStorageColors[payload];
   localStorage.setItem("products", JSON.stringify(currLocalStorageColors));
-  return state;
+  return newState;
 };

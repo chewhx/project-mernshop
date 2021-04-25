@@ -129,8 +129,10 @@ const ProductListItem = ({ product }) => {
         </Col>
         <Col md={2}>
           {" "}
-          {`$${product.subTotal}`}
-          <p className="small text-muted">${product.price} /quantity</p>
+          {`$${Number(product.subTotal).toFixed(2)}`}
+          <p className="small text-muted">
+            ${Number(product.price).toFixed(2)} /quantity
+          </p>
         </Col>
         <Col md={2}>
           <Button

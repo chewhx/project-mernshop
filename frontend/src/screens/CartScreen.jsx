@@ -91,7 +91,12 @@ const CartScreen = () => {
                   </dl>
                   <hr />
                   <LinkContainer to={`/checkout`}>
-                    <Button block type="button" variant="primary">
+                    <Button
+                      disabled={Object.keys(cart.items).length === 0}
+                      block
+                      type="button"
+                      variant="primary"
+                    >
                       Place Order
                     </Button>
                   </LinkContainer>

@@ -8,7 +8,6 @@ const Footer = () => {
       <Container>
         <Row>
           <Col md={4} as="aside" className="mb-3">
-            <Image src="/images/logo.png" />
             <p className="mt-3">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolore
               cupiditate tenetur aut! Recusandae ad totam, obcaecati maiores,

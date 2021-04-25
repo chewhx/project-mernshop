@@ -3,6 +3,7 @@ import { Formik } from "formik";
 import { Row, Col, Form, ListGroup, Button, Badge } from "react-bootstrap";
 import { GlobalContext } from "../context/GlobalProvider";
 import PageTop from "../components/PageTop";
+import Input from "../components/Input";
 
 const CheckoutScreen = () => {
   const { cart, products } = useContext(GlobalContext);
@@ -21,7 +22,8 @@ const CheckoutScreen = () => {
       option: "",
       nameOnCard: "",
       creditCardNumber: "",
-      expiration: "",
+      expirationMM: "",
+      expirationYY: "",
       cvv: "",
     },
   };
@@ -75,103 +77,70 @@ const CheckoutScreen = () => {
                 <>
                   <Form.Row>
                     <Col md={6}>
-                      <Form.Group>
-                        <Form.Label>First Name</Form.Label>
-                        <Form.Control
-                          id="firstName"
-                          name="firstName"
-                          value={values.firstName}
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
+                      <Input.Text
+                        id="firstName"
+                        name="firstName"
+                        label="First Name"
+                        value={values.firstName}
+                        onChange={handleChange}
+                      />
                     </Col>
                     <Col md={6}>
-                      <Form.Group>
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control
-                          id="lastName"
-                          name="lastName"
-                          value={values.lastName}
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
+                      <Input.Text
+                        id="lastName"
+                        name="lastName"
+                        label="Last Name"
+                        value={values.lastName}
+                        onChange={handleChange}
+                      />
                     </Col>
                   </Form.Row>
-                  <Form.Group>
-                    <Form.Label>User Name</Form.Label>
-                    <Form.Control
-                      id="userName"
-                      name="userName"
-                      value={values.userName}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>
-                      Email <span className="text-muted">{`(Optional)`}</span>
-                    </Form.Label>
-                    <Form.Control
-                      id="email"
-                      name="email"
-                      value={values.email}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
-                      id="address"
-                      name="address"
-                      value={values.address}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>
-                      Address 2{" "}
-                      <span className="text-muted">{`(Optional)`}</span>
-                    </Form.Label>
-                    <Form.Control
-                      id="address2"
-                      name="address2"
-                      value={values.address2}
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
+                  <Input.Text
+                    id="userName"
+                    name="userName"
+                    label="Username"
+                    value={values.userName}
+                    onChange={handleChange}
+                  />
+                  <Input.Text
+                    id="email"
+                    name="email"
+                    label="Email (Optional)"
+                    value={values.email}
+                    onChange={handleChange}
+                  />
+                  <Input.Text
+                    id="address"
+                    name="address"
+                    label="Address"
+                    value={values.address}
+                    onChange={handleChange}
+                  />
+                  <Input.Text
+                    id="address2"
+                    name="address2"
+                    label="Address 2"
+                    value={values.address2}
+                    onChange={handleChange}
+                  />
                   <Form.Row>
                     <Col md={5}>
-                      <Form.Group>
-                        <Form.Label>
-                          Country{" "}
-                          <span className="text-muted">{`(Optional)`}</span>
-                        </Form.Label>
-                        <Form.Control
-                          as="select"
-                          id="country"
-                          name="country"
-                          value={values.country}
-                          onChange={handleChange}
-                        >
-                          <option value="" label="Choose..." />
-                          <option value="singapore" label="Singapore" />
-                        </Form.Control>
-                      </Form.Group>
+                      <Input.SelectCountry
+                        id="country"
+                        name="country"
+                        label="Country"
+                        value={values.coutry}
+                        onChange={handleChange}
+                      />
                     </Col>
                     <Col md={4}>
-                      <Form.Group>
-                        <Form.Label>State</Form.Label>
-                        <Form.Control
-                          as="select"
-                          id="state"
-                          name="state"
-                          value={values.state}
-                          onChange={handleChange}
-                        >
-                          <option value="" label="Choose..." />
-                          <option value="newyork" label="New York" />
-                          <option value="washington" label="Washington" />
-                        </Form.Control>
-                      </Form.Group>
+                      <Input.SelectState
+                        id="state"
+                        name="state"
+                        label="State"
+                        value={values.state}
+                        onChange={handleChange}
+                      />
                     </Col>
                     <Col md={3}>
                       <Form.Label>Zip</Form.Label>
@@ -184,7 +153,7 @@ const CheckoutScreen = () => {
                     </Col>
                   </Form.Row>
                   <hr />
-                  <Form.Check
+                  <Input.Check
                     type="switch"
                     id="options.shippingAddress"
                     name="options.shippingAddress"
@@ -192,7 +161,7 @@ const CheckoutScreen = () => {
                     value={true}
                     onChange={handleChange}
                   />
-                  <Form.Check
+                  <Input.Check
                     type="switch"
                     id="options.saveInfo"
                     name="options.saveInfo"
@@ -256,12 +225,7 @@ const CheckoutScreen = () => {
                     <Col md={3}>
                       <Form.Group>
                         <Form.Label>Expiration</Form.Label>
-                        <Form.Control
-                          id="payment.expiration"
-                          name="payment.expiration"
-                          value={values.payment.expiration}
-                          onChange={handleChange}
-                        />
+                        <Form.Control />
                       </Form.Group>
                     </Col>
                     <Col md={3}>
