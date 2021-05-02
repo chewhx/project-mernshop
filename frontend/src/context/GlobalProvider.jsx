@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import PropTypes from "prop-types";
 import { cartReducer, cartInitialState } from "./cartReducer";
 import { productsReducer, productsInitialState } from "./productReducer";
+import appleui from "../data/appleui.json";
 
 export const GlobalContext = React.createContext();
 
@@ -66,6 +67,7 @@ const GlobalProvider = ({ children }) => {
         dispatchProducts,
         cart,
         dispatchCart,
+        appleui,
       }}
     >
       {children}

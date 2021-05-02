@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Col, Card, Button, Row } from "react-bootstrap";
+import React, { useContext, useState, useRef, useEffect } from "react";
+import { Col, Card, Button, Row, Overlay, Tooltip } from "react-bootstrap";
 import { Link } from "react-router-dom";
 // Context
 import { GlobalContext } from "../context/GlobalProvider";
@@ -10,9 +10,18 @@ import FormCounter from "./FormCounter";
 import PropTypes from "prop-types";
 
 const ProductCard = ({ product, inCart }) => {
+  const target = useRef(null);
+  const [message, setMessage] = useState({ show: false, content: "" });
   const { dispatchCart } = useContext(GlobalContext);
   const [qty, setQty] = useState((inCart && inCart.qty) || 1);
-  console.log(`${product._id} qty: ${qty}`);
+
+  useEffect(() => {
+    return () => {
+      setTimeout(() => {
+        setMessage({ show: false, content: "" });
+      }, 1000);
+    };
+  }, [message]);
   return (
     <>
       <Col lg={3} md={4} sm={6}>
@@ -41,10 +50,12 @@ const ProductCard = ({ product, inCart }) => {
                   <Col lg={6}>
                     <Button
                       block
+                      ref={target}
                       size="sm"
                       type="button"
                       variant="primary"
-                      onClick={() =>
+                      onClick={() => {
+                        setMessage({ show: true, content: "Done" });
                         dispatchCart({
                           type: CART_ADD_ITEM,
                           payload: {
@@ -54,11 +65,22 @@ const ProductCard = ({ product, inCart }) => {
                             price: product.price,
                             subTotal: Number(product.price) * Number(qty),
                           },
-                        })
-                      }
+                        });
+                      }}
                     >
                       Update
                     </Button>
+                    <Overlay
+                      target={target.current}
+                      show={message.show}
+                      placement="top"
+                    >
+                      {(props) => (
+                        <Tooltip id="overlay-example" {...props}>
+                          {message.content}
+                        </Tooltip>
+                      )}
+                    </Overlay>
                   </Col>
                 </Row>
               </>

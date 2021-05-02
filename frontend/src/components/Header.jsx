@@ -7,9 +7,23 @@ const Header = () => {
   const { cart } = useContext(GlobalContext);
   return (
     <>
-      <Navbar bg="primary" variant="dark" className="py-3">
+      <Navbar
+        sticky="top"
+        bg="white"
+        variant="light"
+        className="py-4 mb-5 bg-white"
+      >
         <Navbar.Brand href="/">MERNSHOP</Navbar.Brand>
-        <Nav className="mr-auto">
+        <Nav className="mx-auto">
+          <LinkContainer to={`/`}>
+            <Nav.Link>Home</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to={`/`}>
+            <Nav.Link>Shop All</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to={`/`}>
+            <Nav.Link>Contact Us</Nav.Link>
+          </LinkContainer>
           <NavDropdown title="Products" id="nav-dropdown">
             <LinkContainer to={`/add`}>
               <NavDropdown.Item eventKey="4.1">Add product</NavDropdown.Item>
@@ -32,7 +46,6 @@ const Header = () => {
               </span>
             </Nav.Link>
           </LinkContainer>
-          <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
       </Navbar>
     </>

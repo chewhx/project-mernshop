@@ -22,8 +22,7 @@ const CheckoutScreen = () => {
       option: "",
       nameOnCard: "",
       creditCardNumber: "",
-      expirationMM: "",
-      expirationYY: "",
+      expiration: "",
       cvv: "",
     },
   };
@@ -71,8 +70,9 @@ const CheckoutScreen = () => {
         <Col md={7} lg={8}>
           <h4>Billing address</h4>
           <Formik initialValues={initialValues}>
-            {({ values, handleChange }) => {
-              console.log(values);
+            {({ values, handleChange, errors }) => {
+              
+              console.log(errors);
               return (
                 <>
                   <Form.Row>
@@ -143,10 +143,10 @@ const CheckoutScreen = () => {
                       />
                     </Col>
                     <Col md={3}>
-                      <Form.Label>Zip</Form.Label>
-                      <Form.Control
+                      <Input.Text
                         id="zip"
                         name="zip"
+                        label="Zip"
                         value={values.zip}
                         onChange={handleChange}
                       />
@@ -171,73 +171,50 @@ const CheckoutScreen = () => {
                   />
                   <hr />
                   <h4>Payment</h4>
-                  <Form.Group>
-                    <Form.Check
-                      type="radio"
-                      id="payment.option"
-                      name="payment.option"
-                      label="Credit card"
-                      value="creditcard"
-                      onChange={handleChange}
-                    />
-                    <Form.Check
-                      type="radio"
-                      id="payment.option"
-                      name="payment.option"
-                      label="Debit card"
-                      value="debitcard"
-                      onChange={handleChange}
-                    />
-                    <Form.Check
-                      type="radio"
-                      id="payment.option"
-                      name="payment.option"
-                      label="PayPal card"
-                      value="paypal"
-                      onChange={handleChange}
-                    />
-                  </Form.Group>
+                  <Input.Radio
+                    id="payment.option"
+                    name="payment.option"
+                    label={["credit card", "debit card", "paypal"]}
+                    onChange={handleChange}
+                  />
                   <Form.Row>
                     <Col md={6}>
-                      <Form.Group>
-                        <Form.Label>Name on card</Form.Label>
-                        <Form.Control
-                          id="payment.nameOnCard"
-                          name="payment.nameOnCard"
-                          value={values.payment.nameOnCard}
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
+                      <Input.Text
+                        id="payment.nameOnCard"
+                        name="payment.nameOnCard"
+                        label="Name on card"
+                        value={values.payment.nameOnCard}
+                        onChange={handleChange}
+                      />
                     </Col>
                     <Col md={6}>
-                      <Form.Group>
-                        <Form.Label>Credit card number</Form.Label>
-                        <Form.Control
-                          id="payment.creditCardNumber"
-                          name="payment.creditCardNumber"
-                          value={values.payment.creditCardNumber}
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
+                      <Input.Text
+                        id="payment.creditCardNumber"
+                        name="payment.creditCardNumber"
+                        label="Credit card number"
+                        value={values.payment.creditCardNumber}
+                        onChange={handleChange}
+                      />
                     </Col>
                   </Form.Row>
                   <Form.Row>
                     <Col md={3}>
-                      <Form.Group>
-                        <Form.Label>Expiration</Form.Label>
-                        <Form.Control />
-                      </Form.Group>
+                      <Input.Text
+                        id="payment.expiration"
+                        name="payment.expiration"
+                        label="Expiration"
+                        value={values.payment.expiration}
+                        onChange={handleChange}
+                      />
                     </Col>
                     <Col md={3}>
-                      <Form.Group>
-                        <Form.Label>CVV</Form.Label>
-                        <Form.Control
-                          id="payment.cvv"
-                          name="payment.cvv"
-                          value={values.payment.cvv}
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
+                      <Input.Text
+                        id="payment.cvv"
+                        name="payment.cvv"
+                        label="CVV"
+                        value={values.payment.cvv}
+                        onChange={handleChange}
+                      />
                     </Col>
                   </Form.Row>
                   <hr />

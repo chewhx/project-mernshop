@@ -38,18 +38,36 @@ const ProductListItem = ({ product }) => {
                 <Form.Control
                   as="select"
                   size="sm"
+                  value={cart.items[product._id]["mode"]}
                   placeholder={cart.items[product._id]["mode"]}
                   style={{ width: "50%" }}
+                  onChange={(e) =>
+                    dispatchCart({
+                      type: CART_ADD_ITEM,
+                      payload: {
+                        _id: product._id,
+                        qty: qty,
+                        mode: e.target.value,
+                        price: product.price,
+                        subTotal: (product.price * (qty)).toFixed(2),
+                      },
+                    })
+                  }
                 >
                   <option
                     value={cart.items[product._id]["mode"]}
                     label={cart.items[product._id]["mode"]}
                   />
-                  <option value="default" label="Default" />
-                  <option value="light" label="Light" />
-                  <option value="dark" label="Dark" />
+                  {products[product._id].mode
+                    .filter((each) => each !== cart.items[product._id]["mode"])
+                    .map((each, idx) => (
+                      <option
+                        key={`mode-opt-${idx}`}
+                        value={each}
+                        label={each}
+                      />
+                    ))}
                 </Form.Control>
-                {cart.items[product._id]["mode"]}
               </p>
             </Col>
           </Row>

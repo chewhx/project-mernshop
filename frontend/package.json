@@ -1,6 +1,5 @@
 {
   "name": "project-mernshop",
-  "proxy": "http://localhost:5000",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -27,7 +26,8 @@
     "react-scripts": "^4.0.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.2.3"
   },
   "browserslist": {
     "production": [

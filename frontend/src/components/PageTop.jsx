@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const PageTop = ({ children }) => {
+
   return (
     <div className="pt-4 pb-3 mb-3">
       <h2>{children}</h2>

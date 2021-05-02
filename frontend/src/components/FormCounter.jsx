@@ -18,7 +18,7 @@ const FormCounter = ({
           <InputGroup.Prepend>
             <Button
               size={size}
-              variant="outline-secondary"
+              variant="link"
               onClick={() => {
                 if (value === 1) return;
                 if (value > 1) handleChange((prev) => Number(prev) - 1);
@@ -36,7 +36,7 @@ const FormCounter = ({
           <InputGroup.Append>
             <Button
               size={size}
-              variant="outline-secondary"
+              variant="link"
               onClick={() => {
                 if (value === max) return;
                 if (value < max) handleChange((prev) => Number(prev) + 1);

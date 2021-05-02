@@ -1,30 +1,97 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState, useContext } from "react";
-import { Row, Col, Image, Card, Button, Form } from "react-bootstrap";
+import React, { useState, useContext, useRef, useEffect } from "react";
+import { Row, Col, Image, Button, Container } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { HeartFill } from "react-bootstrap-icons";
-import Rating from "../components/Rating";
+// import { HeartFill } from "react-bootstrap-icons";
+// import Rating from "../components/Rating";
 import { GlobalContext } from "../context/GlobalProvider";
 import { CART_ADD_ITEM } from "../context/constants";
 import FormCounter from "../components/FormCounter";
-import PageTop from "../components/PageTop";
 
 const ProductScreen = ({ match }) => {
+  const target = useRef(null);
   const { products, dispatchCart, cart } = useContext(GlobalContext);
-
+  const [message, setMessage] = useState({ show: false, content: "" });
   const [mode, setMode] = useState("default");
+  // eslint-disable-next-line no-unused-vars
   const [product, setProduct] = useState(products[match.params.id]);
-  const [qty, setQty] = useState(cart.items[product._id].qty || 1);
-
-  useEffect(async () => {}, [setProduct]);
+  const [qty, setQty] = useState(
+    (cart.items[product._id] && cart.items[product._id].qty) || 1
+  );
+  console.log(match.params.id);
+  console.log(target);
+  console.log(setMode);
+  useEffect(() => {
+    console.log("useEffect ran");
+    return () => {
+      console.log("Clean up ran");
+      setTimeout(() => {
+        setMessage({ show: false, content: "" });
+      }, 1500);
+    };
+  }, [dispatchCart, message]);
   return !product ? (
     "Loading..."
   ) : (
     <>
-      <PageTop>{` `}</PageTop>
-      <Card>
+      <Container>
         <Row>
-          <Col lg={6}>
+          <Col lg={7} className="px-5 order-lg-2 mb-4">
+            <Image
+              fluid
+              src={`https://singlecolorimage.com/get/${product._id}/590x500`}
+            />
+          </Col>
+          <Col lg={5} className="order-lg-1">
+            <p className="display-3">{product.name}</p>
+            <p>${product.price}</p>
+            <Row>
+              <Col xs={7}>Quantity</Col>
+              <Col xs={5}>
+                <FormCounter
+                  size="sm"
+                  className="my-3 mx-2"
+                  value={qty}
+                  onChange={setQty}
+                />
+              </Col>
+              <Button
+                block
+                type="button"
+                variant="outline-primary"
+                className="rounded-pill py-3 mb-4"
+                onClick={() => {
+                  setMessage({ show: true, content: "Success" });
+                  dispatchCart({
+                    type: CART_ADD_ITEM,
+                    payload: {
+                      _id: product._id,
+                      qty: qty,
+                      mode: mode,
+                      price: product.price,
+                      subTotal: (product.price * Number(qty)).toFixed(2),
+                    },
+                  });
+                }}
+              >
+                Add to Cart
+              </Button>
+              <p>
+                Our whole grain brown bread is made fresh daily. It can stay
+                fresh for up to 7 days.
+              </p>
+              <p>
+                <i>
+                  We offer same-day delivery for all orders made before 4 pm
+                  between Monday and Friday. All orders placed on Saturday or
+                  Sunday will be delivered the following Monday. We are only
+                  shipping within Montréal at this time.
+                </i>
+              </p>
+            </Row>
+          </Col>
+
+          {/* <Col lg={6} className="py-4 px-4">
             <Image
               fluid
               src={`https://singlecolorimage.com/get/${product._id}/590x500`}
@@ -83,10 +150,12 @@ const ProductScreen = ({ match }) => {
                 Buy now
               </Button>
               <Button
+                ref={target}
                 className="mr-2"
                 type="button"
                 variant="primary"
-                onClick={() =>
+                onClick={() => {
+                  setMessage({ show: true, content: "Success" });
                   dispatchCart({
                     type: CART_ADD_ITEM,
                     payload: {
@@ -96,18 +165,29 @@ const ProductScreen = ({ match }) => {
                       price: product.price,
                       subTotal: (product.price * Number(qty)).toFixed(2),
                     },
-                  })
-                }
+                  });
+                }}
               >
                 Add to cart
               </Button>
+              <Overlay
+                target={target.current}
+                show={message.show}
+                placement="top"
+              >
+                {(props) => (
+                  <Tooltip id="overlay-example" {...props}>
+                    {message.content}
+                  </Tooltip>
+                )}
+              </Overlay>
               <Button className="mr-2" type="button" variant="outline-danger">
                 <HeartFill />
               </Button>
             </Card.Body>
-          </Col>
+          </Col> */}
         </Row>
-      </Card>
+      </Container>
     </>
   );
 };

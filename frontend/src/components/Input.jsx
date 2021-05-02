@@ -1,6 +1,6 @@
 import React from "react";
 import { getNames } from "country-list";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 import _states from "../_states.json";
@@ -54,19 +54,18 @@ Input.Check = function InputCheck({ label, ...rest }) {
   );
 };
 
-Input.Expiration = function Expiration({ label, ...rest }) {
+Input.Radio = function InputRadio({ label, ...rest }) {
   return (
     <Form.Group>
-      {label && <Form.Label>{label}</Form.Label>}
-      <Row>
-        <Col>
-          <Form.Control placeholder="MM" {...rest} />
-        </Col>
-        {"/"}
-        <Col>
-          <Form.Control placeholder="YY" {...rest} />
-        </Col>
-      </Row>
+      {label.map((each, idx) => (
+        <Form.Check
+          key={`option-${each}-${idx}`}
+          type="radio"
+          label={each}
+          value={each}
+          {...rest}
+        />
+      ))}
     </Form.Group>
   );
 };
@@ -86,4 +85,6 @@ Input.Text.propTypes = labelValidation;
 Input.Check.propTypes = labelValidation;
 Input.SelectCountry.propTypes = labelValidation;
 Input.SelectState.propTypes = labelValidation;
-Input.Expiration.propTypes = labelValidation;
+Input.Radio.propTypes = {
+  label: PropTypes.array,
+};

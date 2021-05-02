@@ -1,5 +1,4 @@
 import React from "react";
-import { Container } from "react-bootstrap";
 import { Route } from "react-router-dom";
 import Header from "./components/Header";
 import HomeScreen from "./screens/HomeScreen";
@@ -15,14 +14,12 @@ const App = () => {
   return (
     <GlobalProvider>
       <Header />
-      <Container>
-        <Route exact path="/products/:id" component={ProductScreen} />
-        <Route exact path="/add" component={AddScreen} />
-        <Route exact path="/edit" component={EditScreen} />
-        <Route exact path="/cart" component={CartScreen} />
-        <Route exact path="/checkout" component={CheckoutScreen} />
-        <Route exact path="/" component={HomeScreen} />
-      </Container>
+      <Route exact path="/products/:id" component={ProductScreen} />
+      <Route exact path="/add" component={AddScreen} />
+      <Route exact path="/edit" component={EditScreen} />
+      <Route exact path="/cart" component={CartScreen} />
+      <Route exact path="/checkout" component={CheckoutScreen} />
+      <Route exact path="/" component={HomeScreen} />
       <Footer />
     </GlobalProvider>
   );
