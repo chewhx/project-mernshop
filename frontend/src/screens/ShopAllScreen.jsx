@@ -1,23 +1,21 @@
 import React, { useContext } from "react";
-import { Row } from "react-bootstrap";
-import ProductCardNew from "../components/ProductCardNew";
 import { GlobalContext } from "../context/GlobalProvider";
-
-const Bootstrap = () => {
+import ProductCardNew from "../components/ProductCardNew";
+import { Container, Row } from "react-bootstrap";
+const ShopAllScreen = () => {
   const { products } = useContext(GlobalContext);
   return (
-    <>
-      <p>Bootstrap</p>
+    <Container>
       <Row>
         {Object.keys(products).map((key, idx) => (
           <ProductCardNew
-            key={`bootstrap-product-${idx}`}
             product={products[key]}
+            key={`shopall-product-${idx}`}
           />
         ))}
       </Row>
-    </>
+    </Container>
   );
 };
 
-export default Bootstrap;
+export default ShopAllScreen;

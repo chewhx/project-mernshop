@@ -9,11 +9,13 @@ import EditScreen from "./screens/EditScreen";
 import CheckoutScreen from "./screens/CheckoutScreen";
 import GlobalProvider from "./context/GlobalProvider";
 import Footer from "./components/Footer";
+import ShopAllScreen from "./screens/ShopAllScreen";
 
 const App = () => {
   return (
     <GlobalProvider>
       <Header />
+      <Route exact path="/products" component={ShopAllScreen} />
       <Route exact path="/products/:id" component={ProductScreen} />
       <Route exact path="/add" component={AddScreen} />
       <Route exact path="/edit" component={EditScreen} />

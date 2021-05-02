@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
+    "blobs": "^2.2.0",
     "country-list": "^2.2.0",
     "formik": "^2.2.6",
     "react": "^17.0.1",

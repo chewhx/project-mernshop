@@ -7,7 +7,6 @@ const AppleUI = () => {
   const { appleui } = useContext(GlobalContext);
   return (
     <>
-      <p>AppleUI</p>
       <Row>
         {Object.keys(appleui[0]).map((key, idx) => (
           <ProductCardNew

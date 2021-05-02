@@ -3,13 +3,13 @@ import {
   PRODUCTS_REMOVE_ITEM,
   PRODUCTS_CLEAR_ITEMS,
 } from "./constants";
-import bootstrap from "../data/bootstrap.json";
+import products from "../data/products.json";
 
 const currLocalStorageColors =
   JSON.parse(localStorage.getItem("products")) || {};
 
 export const productsInitialState = {
-  ...bootstrap[0],
+  ...products[0],
   ...currLocalStorageColors,
 };
 

@@ -1,103 +1,52 @@
 import React, { useContext, useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Nav,
-  Card,
-  Col,
-  Image,
-  Form,
-  Button,
-} from "react-bootstrap";
-import Input from "../components/Input";
+import { Container, Row, Nav, Col, Image, Form, Button } from "react-bootstrap";
 import { GlobalContext } from "../context/GlobalProvider";
 import AppleUI from "../sections/AppleUI";
-import Bootstrap from "../sections/Bootstrap";
+import BSColorsSection from "../sections/BSColorsSection";
+import HeroSection from "../sections/HeroSection";
 import FeatureCard from "../components/FeatureCard";
 
 const ProductListing = () => {
   const { products } = useContext(GlobalContext);
   const [menu, setMenu] = useState("Bootstrap");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState();
 
   useEffect(() => {
-    setResults(
-      Object.keys(products)
-        .map((key) => products[key])
-        .filter(
-          (each) =>
-            each.name.toLowerCase().includes(searchTerm) ||
-            each.theme.toLowerCase().includes(searchTerm)
-        )
-    );
-  }, [searchTerm]);
+    // setResults(
+    //   Object.keys(products)
+    //     .map((key) => products[key])
+    //     .filter(
+    //       (each) =>
+    //         each.name.toLowerCase().includes(searchTerm) ||
+    //         each.theme.toLowerCase().includes(searchTerm)
+    //     )
+    // );
+  }, []);
 
-  return !results ? (
+  return !products ? (
     "Loading..."
   ) : (
     <>
-      <div
-        style={{
-          height: "450px",
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=695&q=80)",
-          backgroundRepeat: " no-repeat",
-          backgroundSize: "cover",
-          backgroundPositionY: "center",
-          marginBottom: "6rem",
-        }}
-      >
-        {/* <Image
-          style={{
-            width: "100%",
-            objectFit: "cover",
-          }}
-          src="https://images.unsplash.com/photo-1558470598-a5dda9640f68?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
-          alt="hero-image"
-        /> */}
-        <Card
-          className="py-5 px-5 bg-light"
-          style={{
-            position: "absolute",
-            bottom: "120px",
-            left: "50px",
-            zIndex: "2",
-          }}
-        >
-          <p className="display-3">Colour essentials</p>
-          <p>
-            Locally sourced products, carefully picked with quality and
-            freshness in mind.
-          </p>
-        </Card>
-      </div>
+      <HeroSection />
       <Container>
-        <Input.Text
-          id="searchBox"
-          name="searchBox"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
-        />
-
         <Nav className="py-4" activeKey="/bootstrap">
           <Nav.Item>
             <Nav.Link active onClick={() => setMenu("Bootstrap")}>
-              Bootstrap
+              <h4>Bootstrap</h4>
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link onClick={() => setMenu("AppleUI")}>Apple UI</Nav.Link>
+            <Nav.Link onClick={() => setMenu("AppleUI")}>
+              <h4>Apple UI</h4>
+            </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link onClick={() => setMenu("Bootstrap")}>
-              Material UI
+              <h4>Material UI</h4>
             </Nav.Link>
           </Nav.Item>
         </Nav>
         {menu === "Bootstrap" ? (
-          <Bootstrap />
+          <BSColorsSection />
         ) : menu === "AppleUI" ? (
           <AppleUI />
         ) : null}
