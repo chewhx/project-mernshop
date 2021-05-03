@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Container, Row, Nav, Col, Image, Form, Button } from "react-bootstrap";
+import { Container, Row, Nav, Col, Form, Button } from "react-bootstrap";
 import { GlobalContext } from "../context/GlobalProvider";
-import AppleUI from "../sections/AppleUI";
+import AppleColorsSection from "../sections/AppleColorsSection";
 import BSColorsSection from "../sections/BSColorsSection";
 import HeroSection from "../sections/HeroSection";
-import FeatureCard from "../components/FeatureCard";
+import HighlightSection from "../sections/HighlightSection";
+import FeaturesSection from "../sections/FeaturesSection";
 
 const ProductListing = () => {
   const { products } = useContext(GlobalContext);
@@ -48,46 +49,41 @@ const ProductListing = () => {
         {menu === "Bootstrap" ? (
           <BSColorsSection />
         ) : menu === "AppleUI" ? (
-          <AppleUI />
+          <AppleColorsSection />
         ) : null}
       </Container>
-      <FeatureCard />
 
-      <Container fluid className="bg-light py-4">
-        <Row>
-          <Col md={3} className="text-center">
-            <Image
-              roundedCircle
-              className="mb-3"
-              src="https://via.placeholder.com/100"
-            />
-            <p>Made fresh daily</p>
-          </Col>
-          <Col md={3} className="text-center">
-            <Image
-              roundedCircle
-              className="mb-3"
-              src="https://via.placeholder.com/100"
-            />
-            <p>Made fresh daily</p>
-          </Col>
-          <Col md={3} className="text-center">
-            <Image
-              roundedCircle
-              className="mb-3"
-              src="https://via.placeholder.com/100"
-            />
-            <p>Made fresh daily</p>
-          </Col>
-          <Col md={3} className="text-center">
-            <Image
-              roundedCircle
-              className="mb-3"
-              src="https://via.placeholder.com/100"
-            />
-            <p>Made fresh daily</p>
-          </Col>
-        </Row>
+      <Container fluid className="bg-success">
+        <HighlightSection />
+      </Container>
+
+      <Container>
+        <Nav className="py-4" activeKey="/bootstrap">
+          <Nav.Item>
+            <Nav.Link active onClick={() => setMenu("Bootstrap")}>
+              <h4>Bootstrap</h4>
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={() => setMenu("AppleUI")}>
+              <h4>Apple UI</h4>
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link onClick={() => setMenu("Bootstrap")}>
+              <h4>Material UI</h4>
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+        {menu === "Bootstrap" ? (
+          <BSColorsSection />
+        ) : menu === "AppleUI" ? (
+          <AppleColorsSection />
+        ) : null}
+      </Container>
+
+      <Container fluid className="bg-dark py-5">
+        <FeaturesSection />
       </Container>
 
       <Container className="my-5">
@@ -132,7 +128,9 @@ const ProductListing = () => {
           make that happen. A perfect gift for those you love!
         </p>
       </Container>
-      <FeatureCard reverse />
+      <Container fluid className="bg-info">
+        <HighlightSection reverse />
+      </Container>
     </>
   );
 };

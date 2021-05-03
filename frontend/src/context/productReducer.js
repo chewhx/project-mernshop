@@ -35,7 +35,10 @@ const addProduct = (state, payload) => {
 
     localStorage.setItem(
       "products",
-      JSON.stringify({ ...currLocalStorageColors, [payload._id]: payload })
+      JSON.stringify({
+        ...currLocalStorageColors,
+        [payload._id]: payload,
+      })
     );
     return { ...state, [payload._id]: payload };
   }

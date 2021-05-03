@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useContext, useRef, useEffect } from "react";
-import { Row, Col, Image, Button, Container } from "react-bootstrap";
+import { Row, Col, Button, Container } from "react-bootstrap";
 import PropTypes from "prop-types";
 // import { HeartFill } from "react-bootstrap-icons";
 // import Rating from "../components/Rating";
@@ -36,11 +36,22 @@ const ProductScreen = ({ match }) => {
     <>
       <Container>
         <Row>
-          <Col lg={7} className="px-5 order-lg-2 mb-4">
-            <Image
-              fluid
-              src={`https://singlecolorimage.com/get/${product._id}/590x500`}
-            />
+          <Col lg={7} className="order-lg-2 mb-4">
+            <svg
+              width="100%"
+              height="100%"
+              viewBox={product.svg.viewBox}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g transform={product.svg.transform}>
+                <path
+                  stroke="none"
+                  strokeWidth="0"
+                  fill={`#${product._id}`}
+                  d={product.svg.path}
+                />
+              </g>
+            </svg>
           </Col>
           <Col lg={5} className="order-lg-1">
             <p className="display-3">{product.name}</p>

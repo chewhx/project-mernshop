@@ -1,22 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
 import "./ProductCardNew.css";
 import { Link } from "react-router-dom";
-import blobs from "blobs";
 import PropTypes from "prop-types";
 
 const ProductCardNew = ({ product }) => {
-  useEffect(() => {
-    document.querySelector(`#blob-${product._id}`).innerHTML = blobs({
-      size: 150,
-      complexity: Math.random(),
-      contrast: 0.5,
-      color: `#${product._id}`,
-      guides: false,
-      seed: Math.floor(Math.random() * 99),
-    });
-  }, []);
-
   return (
     <>
       <Col md={6}>
@@ -39,16 +27,23 @@ const ProductCardNew = ({ product }) => {
               </p>
             </Col>
             <Col xs={4}>
-              <div id={`blob-${product._id}`}></div>
-              {/* <div
-                className="mx-auto img-thumbnail"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: `#${product._id}`,
-                  display: "inline-block",
-                }}
-              ></div> */}
+              <div id={`blob-${product._id}`}>
+                <svg
+                  width="150"
+                  height="150"
+                  viewBox={product.svg.viewBox}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g transform={product.svg.transform}>
+                    <path
+                      stroke="none"
+                      strokeWidth="0"
+                      fill={`#${product._id}`}
+                      d={product.svg.path}
+                    />
+                  </g>
+                </svg>
+              </div>
             </Col>
           </Row>
         </Card>

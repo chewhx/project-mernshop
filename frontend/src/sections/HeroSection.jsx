@@ -8,8 +8,8 @@ const HeroSection = () => {
         position: "relative",
         height: "450px",
         backgroundImage:
-          "url(https://cdn.dribbble.com/users/213309/screenshots/14813782/media/ebcbea51ee12ba11f79b4c53fca4fef2.png)",
-        // image credits: https://dribbble.com/shots/14813782-Fluid-matter-illustration-print/attachments/6521556?mode=media
+          "url(https://preview.redd.it/3e3ash0i6x161.jpg?width=3840&format=pjpg&auto=webp&s=9595b7decaa8f0483663434412c91303e4831c97)",
+        // image credits: https://www.reddit.com/r/wallpaper/comments/k2icnd/minimal_blobs_3840x2160/
         backgroundRepeat: " no-repeat",
         backgroundSize: "cover",
         backgroundPositionY: "center",

@@ -35,11 +35,14 @@ const Header = () => {
                 Cart{" "}
                 <span>
                   {cart && (
-                    <Badge variant="danger">
-                      {Object.keys(cart.items).length}
-                    </Badge>
+                    <span className="h4">
+                      <Badge variant="success">
+                        {Object.keys(cart.items).length}
+                      </Badge>
+                    </span>
                   )}
                 </span>
+                <span className="h5"> ${cart.prices.subTotal.toFixed(2)}</span>
               </Nav.Link>
             </LinkContainer>
           </Nav>
