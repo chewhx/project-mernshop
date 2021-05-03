@@ -11,9 +11,9 @@ import {
   Container,
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import PageTop from "../components/PageTop";
-import ProductListItem from "../components/ProductListItem";
-import { GlobalContext } from "../context/GlobalProvider";
+import PageTop from "../../components/PageTop";
+import ProductListItem from "../../components/ProductListItem";
+import { GlobalContext } from "../../context/GlobalProvider";
 import { ArrowLeft } from "react-bootstrap-icons";
 
 const CartScreen = () => {

@@ -2,14 +2,14 @@
 import React, { useState, useContext, useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
-import generateColor from "../utils/generateColor";
-import getColorName from "../utils/getColorName";
-import generatePrice from "../utils/generatePrice";
-import { GlobalContext } from "../context/GlobalProvider";
+import generateColor from "../../utils/generateColor";
+import getColorName from "../../utils/getColorName";
+import generatePrice from "../../utils/generatePrice";
+import { GlobalContext } from "../../context/GlobalProvider";
 import { Formik } from "formik";
-import { PRODUCTS_ADD_ITEM } from "../context/constants";
-import generateBlob from "../utils/generateBlob";
-import Input from "../components/Input";
+import { PRODUCTS_ADD_ITEM } from "../../context/constants";
+import generateBlob from "../../utils/generateBlob";
+import Input from "../../components/Input";
 
 const AddProductScreen = () => {
   const { dispatchProducts } = useContext(GlobalContext);

@@ -3,7 +3,7 @@ import { getNames } from "country-list";
 import { Form } from "react-bootstrap";
 import PropTypes from "prop-types";
 
-import _states from "../_states.json";
+import _states from "../data/_states.json";
 
 const Input = () => {
   return <div>Input</div>;

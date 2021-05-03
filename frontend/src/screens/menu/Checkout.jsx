@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Formik } from "formik";
 import { Row, Col, Form, ListGroup, Button, Badge } from "react-bootstrap";
-import { GlobalContext } from "../context/GlobalProvider";
-import PageTop from "../components/PageTop";
-import Input from "../components/Input";
+import { GlobalContext } from "../../context/GlobalProvider";
+import PageTop from "../../components/PageTop";
+import Input from "../../components/Input";
 
 const CheckoutScreen = () => {
   const { cart, products } = useContext(GlobalContext);

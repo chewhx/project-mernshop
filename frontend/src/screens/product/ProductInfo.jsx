@@ -1,26 +1,23 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useContext, useRef, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import PropTypes from "prop-types";
 // import { HeartFill } from "react-bootstrap-icons";
 // import Rating from "../components/Rating";
-import { GlobalContext } from "../context/GlobalProvider";
-import { CART_ADD_ITEM } from "../context/constants";
-import FormCounter from "../components/FormCounter";
+import { GlobalContext } from "../../context/GlobalProvider";
+import { CART_ADD_ITEM } from "../../context/constants";
+// import FormCounter from "../../components/FormCounter";
+import Input from "../../components/Input";
 
 const ProductScreen = ({ match }) => {
-  const target = useRef(null);
   const { products, dispatchCart, cart } = useContext(GlobalContext);
   const [message, setMessage] = useState({ show: false, content: "" });
-  const [mode, setMode] = useState("default");
   // eslint-disable-next-line no-unused-vars
   const [product, setProduct] = useState(products[match.params.id]);
   const [qty, setQty] = useState(
     (cart.items[product._id] && cart.items[product._id].qty) || 1
   );
-  console.log(match.params.id);
-  console.log(target);
-  console.log(setMode);
+
   useEffect(() => {
     console.log("useEffect ran");
     return () => {
@@ -59,11 +56,13 @@ const ProductScreen = ({ match }) => {
             <Row>
               <Col xs={7}>Quantity</Col>
               <Col xs={5}>
-                <FormCounter
-                  size="sm"
+                <Input.Text
                   className="my-3 mx-2"
+                  type="number"
+                  min={1}
+                  max={99}
                   value={qty}
-                  onChange={setQty}
+                  onChange={(e) => setQty(e.target.value)}
                 />
               </Col>
               <Button
@@ -78,7 +77,6 @@ const ProductScreen = ({ match }) => {
                     payload: {
                       _id: product._id,
                       qty: qty,
-                      mode: mode,
                       price: product.price,
                       subTotal: (product.price * Number(qty)).toFixed(2),
                     },

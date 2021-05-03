@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { Row } from "react-bootstrap";
-import ProductCardNew from "../components/ProductCardNew";
-import { GlobalContext } from "../context/GlobalProvider";
+import ProductCardNew from "../../components/ProductCardNew";
+import { GlobalContext } from "../../context/GlobalProvider";
 
-const BSColorsSection = () => {
+const UserColors = () => {
   const { products } = useContext(GlobalContext);
   return (
     <>
       <Row>
         {Object.keys(products)
           .map((key) => products[key])
-          .filter((each) => each.theme === "Bootstrap")
+          .filter((each) => each.theme === "User")
           .map((each, idx) => (
             <ProductCardNew key={`bootstrap-product-${idx}`} product={each} />
           ))}
@@ -19,4 +19,4 @@ const BSColorsSection = () => {
   );
 };
 
-export default BSColorsSection;
+export default UserColors;
