@@ -69,7 +69,7 @@ const EditProductScreen = () => {
             <Col md={2}></Col>
           </Row>
         </ListGroup.Item>
-        {Object.keys(products).map((key, idx) => (
+        {Object.keys(products).map((key, idx) => products[key]["theme"] === "User" && (
           <ListItem key={`editProduct-${idx}`} product={products[key]} />
         ))}
       </ListGroup>
